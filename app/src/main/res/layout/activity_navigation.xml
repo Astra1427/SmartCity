@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.NavigationActivity">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/vPager2"
+        android:layout_above="@id/rgTab"
+        android:layout_weight="1"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_alignTop="@id/tbLayout"
+        />
+
+    <RadioGroup
+        android:id="@+id/rgTab"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:visibility="gone"
+        >
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="首页"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:paddingVertical="5dp"
+            android:button="@null"
+            android:drawableTop="@android:drawable/ic_menu_save"
+            android:drawableTint="@color/black"
+
+            />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="全部服务"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:paddingVertical="5dp"
+            android:button="@null"
+            android:drawableTop="@android:drawable/ic_menu_save"
+            android:drawableTint="@color/black"
+            />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="智慧养老"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:paddingVertical="5dp"
+            android:button="@null"
+            android:drawableTint="@color/black"
+            android:drawableTop="@android:drawable/ic_menu_save"
+            />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="新闻"
+            android:button="@null"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            android:paddingVertical="5dp"
+            android:drawableTint="@color/black"
+            android:drawableTop="@android:drawable/ic_menu_save"
+            />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="个人中心"
+            android:button="@null"
+            android:gravity="center"
+            android:drawablePadding="5dp"
+
+            android:paddingVertical="5dp"
+            android:drawableTop="@android:drawable/ic_menu_save"
+            android:drawableTint="@color/black"
+
+            />
+    </RadioGroup>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/tbLayout"
+        android:layout_alignParentBottom="true"
+        app:tabSelectedTextColor="@android:color/holo_red_light"
+        app:tabIndicator="@null"
+        app:tabIconTint="@color/black"
+
+        />
+
+
+</LinearLayout>
