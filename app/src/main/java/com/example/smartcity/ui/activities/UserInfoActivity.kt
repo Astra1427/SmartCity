@@ -1,8 +1,10 @@
 package com.example.smartcity.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.allViews
+import androidx.core.view.isVisible
 import com.example.smartcity.GContext
 import com.example.smartcity.R
 import com.example.smartcity.common.*
@@ -46,12 +48,16 @@ class UserInfoActivity : BaseActivity() {
             txtIDCard.setText(user.idCard)
             txtEmail.setText(user.email)
         }
+        setViews(false)
 
 
 
         with(bind) {
             btnModify.setOnClickListener {
+                setViews(true)
+            }
 
+            btnSave.setOnClickListener{
                 if (bind.root.allViews.filter{x->x is  TextView}.map { it as TextView }.toList().checkTextIsEmpty(true)){
                     return@setOnClickListener
                 }
@@ -71,10 +77,30 @@ class UserInfoActivity : BaseActivity() {
                         it.idCard = requestModel.idCard
                         it.email = requestModel.email
                     }
+                    setViews(false)
                 },
                     token=GContext.loginInfo?.token,
                     json = requestModel.toJson() )
             }
+        }
+    }
+
+    fun setViews(isModify:Boolean){
+        with(bind) {
+            txtNickName.isEnabled = isModify
+            txtEmail.isEnabled = isModify
+            txtPhone.isEnabled = isModify
+            txtIDCard.isEnabled = isModify
+            rbMale.isEnabled = isModify
+            rbFemale.isEnabled = isModify
+            if (isModify){
+                btnModify.visibility = View.GONE
+                btnSave.isVisible = true
+            }else{
+                btnModify.visibility = View.VISIBLE
+                btnSave.isVisible = false
+            }
+
         }
     }
 }

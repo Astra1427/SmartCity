@@ -166,6 +166,14 @@
         style="@style/PrimaryButton"
         android:layout_marginTop="50dp"
         android:id="@+id/btnModify"
+        android:visibility="visible"
         />
 
+    <Button
+        android:text="保存"
+        style="@style/PrimaryButton"
+        android:layout_marginTop="50dp"
+        android:id="@+id/btnSave"
+        android:visibility="gone"
+        />
 </LinearLayout>

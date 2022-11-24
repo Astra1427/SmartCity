@@ -1,6 +1,8 @@
 package com.example.smartcity.common
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
@@ -17,7 +19,9 @@ import com.example.smartcity.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.internal.wait
 import java.io.InputStreamReader
+import kotlin.coroutines.coroutineContext
 import kotlin.reflect.KVisibility
 
 
@@ -154,4 +158,52 @@ fun List<TextView>.checkTextIsEmpty(isMsg:Boolean = false):Boolean{
         }
     }
     return false
+}
+
+fun Context.alertMsg(msg:String,title:String = "提示"){
+    AlertDialog.Builder(this).apply {
+        setTitle(title)
+        setMessage(msg)
+        setPositiveButton("确定",object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+
+            }
+        })
+
+        setNegativeButton("取消"){
+            dialog,which->
+        }
+    }.create().show()
+}
+
+fun Context.alertInput(title:String = "提示",txt:EditText){
+    val txtInput = EditText(this)
+
+    AlertDialog.Builder(this).apply {
+        setView(txtInput)
+        setTitle(title)
+        setPositiveButton("确定"){
+            dialog,which->
+            txtInput.text
+
+        }
+        setNegativeButton("取消"){
+            d,w->
+            txt.text = txtInput.text
+        }
+    }
+}
+
+fun Context.alertRadio(radios:Array<CharSequence>, title:String = "提示", checkedIndex:Int = 0,click:DialogInterface.OnClickListener){
+    var selectedIndex = 0;
+    AlertDialog.Builder(this).apply {
+        setTitle(title)
+
+        setSingleChoiceItems(radios,checkedIndex,click)
+
+        setPositiveButton("确认"){
+            dialog,which->
+        }
+    }.create().show()
+
 }
