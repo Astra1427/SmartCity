@@ -3,6 +3,7 @@ package com.example.smartcity.common
 import android.util.Log
 import com.example.smartcity.GContext
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
@@ -48,6 +49,22 @@ object Network {
                 }
             }.build()
         sendRequest(reqeust,onSuc,onFail)
+    }
+
+    fun String.putAsync(onSuc: (String) -> Unit={}, onFail: ((Exception) -> Unit)?=null, token:String?=null, json:String){
+
+
+        val body = json.toRequestBody("application/json".toMediaType())
+        val request = Request.Builder()
+            .put(body)
+            .url(baseUrl+this)
+            .apply {
+                token?.let{
+                    addHeader("Authorization",token)
+                }
+            }
+            .build()
+        sendRequest(request,onSuc,onFail)
     }
 
 
