@@ -9,6 +9,7 @@ open class BaseActivity:AppCompatActivity() {
 
 //    lateinit var bind:T
 
+    val TAG = this.javaClass.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

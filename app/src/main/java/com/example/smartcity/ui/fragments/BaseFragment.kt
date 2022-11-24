@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 open class BaseFragment<T>:Fragment() {
     var _bind : T? = null
     val bind get() = _bind!!
-
+    val TAG = this.javaClass.simpleName
 
     override fun onDestroy() {
         super.onDestroy()

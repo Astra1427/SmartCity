@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.core.view.allViews
@@ -35,6 +36,7 @@ object Util {
 
 object Msg{
     const val Success = "操作成功！"
+    const val Failed = "操作失败！"
 }
 
 inline fun<reified T> String.toModel():T?{
@@ -137,6 +139,18 @@ fun View.checkTextIsEmpty(isMsg:Boolean = false):Boolean{
                 }
                 return true
             }
+        }
+    }
+    return false
+}
+
+fun List<TextView>.checkTextIsEmpty(isMsg:Boolean = false):Boolean{
+    this.forEach {
+        if (it.tag == null && it.text.isNullOrEmpty()){
+            if (isMsg){
+                GContext.context.msg("请输入 ${it.hint}")
+            }
+            return true
         }
     }
     return false

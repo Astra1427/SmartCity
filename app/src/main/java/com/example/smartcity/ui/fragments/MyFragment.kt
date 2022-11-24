@@ -1,6 +1,7 @@
 package  com.example.smartcity.ui.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.smartcity.GContext
 import com.example.smartcity.LoginActivity
+import com.example.smartcity.R
 import com.example.smartcity.common.*
 import com.example.smartcity.common.Network.getAsync
 import com.example.smartcity.databinding.FragmentMyBinding
-import com.example.smartcity.models.LoginResponse
-import okhttp3.internal.ignoreIoExceptions
+import com.example.smartcity.ui.activities.UserInfoActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -42,6 +43,11 @@ class MyFragment: BaseFragment<FragmentMyBinding>() {
             GContext.loggedUser = null
             Util.loginInfo.writeText("")
             this.requireActivity().goto<LoginActivity>()
+        }
+
+
+        bind.layoutUserInfo.setOnClickListener {
+            this.requireActivity().goto<UserInfoActivity>()
         }
     }
 
@@ -104,21 +110,25 @@ class MyFragment: BaseFragment<FragmentMyBinding>() {
             return
         }
         loadUserInfo()
-
-
     }
 
-    fun loadUserInfo(){
+
+    private fun loadUserInfo(){
         bind.btnLogout.isVisible = true
         bind.btnLogin.isVisible = false
         bind.layoutTabItems.isVisible = true
         isLoginBack = false
         val user = GContext.loggedUser!!.user
         with(bind) {
+            text1.setLines(2)
+            text1.ellipsize = null
             text1.text = user.userName
             icon.loadImg(user.avatar)
         }
     }
+
+
+
 }
 
 class LoginRouteEvent(val isLoginBack:Boolean)
