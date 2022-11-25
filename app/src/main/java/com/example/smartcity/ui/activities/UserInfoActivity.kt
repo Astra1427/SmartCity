@@ -24,6 +24,7 @@ class UserInfoActivity : BaseActivity() {
         setContentView(bind.root)
 
 
+        initView(true,"个人信息")
 
 
         with(bind) {
@@ -44,8 +45,9 @@ class UserInfoActivity : BaseActivity() {
             txtNickName.setText(user.nickName)
             rbMale.isChecked = true
             rbFemale.isChecked = user.sex != "0"
-            txtPhone.setText(user.phonenumber)
-            txtIDCard.setText(user.idCard)
+
+            txtPhone.setText(user.phonenumber.substring(0,7).padEnd(11,'*'))
+            txtIDCard.setText(user.idCard.substring(0,6).padEnd(18,'*'))
             txtEmail.setText(user.email)
         }
         setViews(false)
@@ -59,6 +61,16 @@ class UserInfoActivity : BaseActivity() {
 
             btnSave.setOnClickListener{
                 if (bind.root.allViews.filter{x->x is  TextView}.map { it as TextView }.toList().checkTextIsEmpty(true)){
+                    return@setOnClickListener
+                }
+                if (txtPhone.text.length != 11)
+                {
+                    this@UserInfoActivity.buildAlertShow("请输入11位手机号")
+                    return@setOnClickListener
+                }
+
+                if (txtIDCard.text.length != 18){
+                    this@UserInfoActivity.buildAlertShow("请输入18为身份证号")
                     return@setOnClickListener
                 }
 
