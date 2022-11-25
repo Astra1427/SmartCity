@@ -1,8 +1,5 @@
 package com.example.smartcity.adpater
 
-import android.graphics.Path.Direction
-import android.text.Layout
-import android.util.LayoutDirection
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginBottom
-import androidx.core.view.setMargins
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -32,11 +27,11 @@ open class BaseListAdapter<T:Any>(val layoutId:Int,val datas:List<T>,
                                   val oddImgWidth:Int? = 0,
                                   val oddImgHeight:Int? = 0,
                                   val isCardView:Boolean =false,
-                                  val onlyText:Boolean = false):
+                                  val onlyTitle:Boolean = false):
     RecyclerView.Adapter<BaseListAdapter<T>.BaseViewHolder>(){
     open inner class BaseViewHolder(view: View): RecyclerView.ViewHolder(view){
         var img: ImageView? = view.findViewById(R.id.icon)
-        var title: TextView = if(onlyText)  view as TextView else view.findViewById(R.id.text1)
+        var title: TextView = if(onlyTitle)  view as TextView else view.findViewById(R.id.text1)
         var line2: TextView? = view.findViewById(R.id.text2)
         var line3: TextView? = view.findViewById(R.id.text3)
         init {
@@ -63,12 +58,13 @@ open class BaseListAdapter<T:Any>(val layoutId:Int,val datas:List<T>,
                 oddLayoutId!!
             else layoutId,parent,false)
 
-        val itemView = if (onlyText){
+        val itemView = if (onlyTitle){
             tempView as TextView
         }else{
-            tempView.findViewById<LinearLayout>(R.id.itemLayout)
+            tempView
         }
 
+        Log.e("TAG", "onCreateViewHolder itemView == null: ${itemView == null}", )
 
         val img = itemView.findViewById<ImageView>(R.id.icon)
         img?.let {
