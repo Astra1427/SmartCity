@@ -83,25 +83,29 @@ object Network {
 
             override fun onResponse(call: Call, response: Response) {
                 val result = response.body?.string()
+                val tempResponse = result?.toModel<NetResponse>()
 
                 ActivityController.getTop().runOnUiThread {
                     if (result == null){
                         //operation success! but no result
                         //...
                         Log.e("sendRequest", "onResponse: Success! but no result" )
-                    }else if(result.contains("\"code\": 401")){
+                    }else if(tempResponse?.code == 401){
                         //goto login page
+                        GContext.loginInfo = null
+                        GContext.loggedUser = null
                         ActivityController.getTop().goto<LoginActivity>()
                         GContext.context.msg("身份信息验证失败！请重新登录")
                     }else{
-                        val tempResponse = result.toModel<NetResponse>()
                         if (tempResponse?.code != 200){
-                            ActivityController.getTop().alertMsg("操作失败：\n"+tempResponse?.msg)
+                            val msgTitle = if (request.url.toString().contains("get")) "查询失败" else "操作失败"
+                            ActivityController.getTop().buildAlertShow("$msgTitle：\n"+tempResponse?.msg)
                             return@runOnUiThread
                         }
                         onSuc.invoke(result)
                     }
                 }
+
             }
 
         })
