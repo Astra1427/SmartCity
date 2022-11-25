@@ -29,6 +29,7 @@ class MyOrderListActivity : BaseActivity() {
 
         setContentView(bind.root)
 
+        initView(true,"订单列表")
 
         val d1 = resources.getDimension(R.dimen.d1).toInt()
         //load order list
