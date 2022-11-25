@@ -29,12 +29,14 @@ class LoginActivity : BaseActivity() {
                     return@setOnClickListener
                 }
 
+                
+
 
                 Apis.post_api_login.postAsync(onSuc = {
                     GContext.loginInfo = it.toModel()
                     GContext.loginInfo.let {
                         if (it?.code != 200){
-                            sender.msgSnack("登陆失败：\n${it?.msg}")
+                            this@LoginActivity.alertMsg("登陆失败：\n${it?.msg}")
                             return@postAsync
                         }
 

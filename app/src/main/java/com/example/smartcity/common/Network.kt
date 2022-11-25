@@ -2,6 +2,8 @@ package com.example.smartcity.common
 
 import android.util.Log
 import com.example.smartcity.GContext
+import com.example.smartcity.LoginActivity
+import com.example.smartcity.models.NetResponse
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -86,11 +88,17 @@ object Network {
                     if (result == null){
                         //operation success! but no result
                         //...
-                        Log.w("sendRequest", "onResponse: Success! but no result" )
+                        Log.e("sendRequest", "onResponse: Success! but no result" )
                     }else if(result.contains("\"code\": 401")){
                         //goto login page
-//                    ActivityController.getTop().goto<LoginActivity>()
+                        ActivityController.getTop().goto<LoginActivity>()
+                        GContext.context.msg("身份信息验证失败！请重新登录")
                     }else{
+                        val tempResponse = result.toModel<NetResponse>()
+                        if (tempResponse?.code != 200){
+                            ActivityController.getTop().alertMsg("操作失败：\n"+tempResponse?.msg)
+                            return@runOnUiThread
+                        }
                         onSuc.invoke(result)
                     }
                 }

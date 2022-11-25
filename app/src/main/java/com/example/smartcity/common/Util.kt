@@ -98,7 +98,7 @@ fun Context.msg( msg:String,showTime:Int = Toast.LENGTH_SHORT){
 fun View.msgSnack(msg:String, showTime: Int = Snackbar.LENGTH_SHORT, actionText:String ? = null, action:()->Unit={}){
     Snackbar.make(this,msg,showTime).setAction(actionText){
         action.invoke()
-    }
+    }.show()
 }
 
 fun<T:Any> T.isSame(item:T):Boolean{
@@ -175,6 +175,22 @@ fun Context.alertMsg(msg:String,title:String = "提示"){
         }
     }.create().show()
 }
+
+fun Context.buildAlertShow(msg:String,title:String = "提示",confirmButton:String="确定",block:(AlertDialog.Builder)->Unit={
+    it.setPositiveButton(confirmButton){
+        dialog,which->
+    }
+}){
+    AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(msg)
+        .apply {
+            block.invoke(this)
+        }
+        .create().show()
+}
+
+
 
 fun Context.alertInput(title:String = "提示",txt:EditText){
     val txtInput = EditText(this)

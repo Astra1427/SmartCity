@@ -61,7 +61,7 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
                 datas = serviceTypes,
                 imgWidth = RecyclerView.LayoutParams.MATCH_PARENT,
                 imgHeight = d1,
-                onlyText = true
+                onlyTitle = true
             ){
 
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

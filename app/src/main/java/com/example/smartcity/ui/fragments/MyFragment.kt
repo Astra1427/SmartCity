@@ -1,7 +1,6 @@
 package  com.example.smartcity.ui.fragments
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +8,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.smartcity.GContext
 import com.example.smartcity.LoginActivity
-import com.example.smartcity.R
 import com.example.smartcity.common.*
 import com.example.smartcity.common.Network.getAsync
 import com.example.smartcity.databinding.FragmentMyBinding
+import com.example.smartcity.ui.activities.MyOrderListActivity
+import com.example.smartcity.ui.activities.PasswordModifyActivity
 import com.example.smartcity.ui.activities.UserInfoActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -48,6 +48,13 @@ class MyFragment: BaseFragment<FragmentMyBinding>() {
 
         bind.layoutUserInfo.setOnClickListener {
             this.requireActivity().goto<UserInfoActivity>()
+        }
+
+        bind.layoutModifyPassword.setOnClickListener {
+            this@MyFragment.requireActivity().goto<PasswordModifyActivity>()
+        }
+        bind.layoutOrderList.setOnClickListener {
+            this@MyFragment.requireActivity().goto<MyOrderListActivity>()
         }
     }
 

@@ -29,7 +29,7 @@ public class UserInfoModel {
         @SerializedName("idCard")
         public String idCard;
         @SerializedName("balance")
-        public int balance;
+        public float balance;
         @SerializedName("score")
         public int score;
     }
