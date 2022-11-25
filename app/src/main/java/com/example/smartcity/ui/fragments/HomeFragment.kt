@@ -25,6 +25,7 @@ import com.example.smartcity.models.RotationListModel
 import com.example.smartcity.models.RotationListModel.RowsDTO
 import com.example.smartcity.models.ServiceModel
 import com.example.smartcity.ui.JumpTabEvent
+import com.example.smartcity.ui.activities.press.PressDetailActivity
 import com.example.smartcity.ui.home.CityPickerActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -168,7 +169,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         imgName = "cover", titleName = "title",
                         imgWidth = d1 * 130,
                         imgHeight = d1 * 150,
-                    )
+                    ).apply {
+                        itemClick={v,i->
+                            this@HomeFragment.requireActivity().goto<PressDetailActivity>{
+                                it.putExtra("pressId",datas[i].id)
+                                it.putExtra("pressJsonData",datas[i].toJson())
+                            }
+                        }
+                    }
                 }
         })
 //        load tab layout
@@ -194,28 +202,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 Apis.get_press_press_list.getAsync(mapOf("type" to tab?.tag.toString()), onSuc = {
                     localPress = it.toModel<PressListModel>()
 //                    val model = press!!.rows!!.first().publishDate
-                    activ.runOnUiThread {
-                        bind.rvNews.adapter = null
-                        Log.e("TAG", "onTabSelected: ${localPress!!.rows.size}", )
+                    bind.rvNews.adapter = null
+                    Log.e("TAG", "onTabSelected: ${localPress!!.rows.size}", )
 
-                        bind.rvNews.adapter = object:BaseListAdapter<PressListModel.RowsDTO>(R.layout.item_v3line,
-                            localPress!!.rows,
-                            oddLayoutId=R.layout.item_h3line,
-                            imgWidth = d1*200,
-                            imgHeight = d1*150,
-                            imgName = "cover",
-                            titleName = "title",
-                            oddImgWidth = d1 * 100,
-                            oddImgHeight = d1 * 170,
-                            isCardView =  true
+                    bind.rvNews.adapter = object:BaseListAdapter<PressListModel.RowsDTO>(R.layout.item_v3line,
+                        localPress!!.rows,
+                        oddLayoutId=R.layout.item_h3line,
+                        imgWidth = d1*200,
+                        imgHeight = d1*150,
+                        imgName = "cover",
+                        titleName = "title",
+                        oddImgWidth = d1 * 100,
+                        oddImgHeight = d1 * 170,
+                        isCardView =  true
 
-                        ){
-                            override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-                                super.onBindViewHolder(holder, position)
-                                with(holder) {
-                                    line2?.text = Html.fromHtml(datas[position].content,Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
-                                    line3?.text = "评论数:${datas[position].commentNum}        ${datas[position].publishDate}"
-                                }
+                    ){
+                        override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+                            super.onBindViewHolder(holder, position)
+                            with(holder) {
+                                line2?.text = Html.fromHtml(datas[position].content,Html.FROM_HTML_SEPARATOR_LINE_BREAK_PARAGRAPH)
+                                line3?.text = "评论数:${datas[position].commentNum}        ${datas[position].publishDate}"
+                            }
+                        }
+                    }.apply {
+                        itemClick = {v,i->
+                            this@HomeFragment.requireActivity().goto<PressDetailActivity>{
+                                it.putExtra("pressId",datas[i].id)
+                                it.putExtra("pressJsonData",datas[i].toJson())
                             }
                         }
                     }
