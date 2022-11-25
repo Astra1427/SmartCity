@@ -26,6 +26,9 @@ class FeedbackLogActivity : BaseActivity() {
         setContentView(bind.root)
 
         initView(true,"意见反馈历史")
+
+
+
         with(bind) {
             Apis.get_api_common_feedback_list.getAsync(heads= mapOf("Authorization" to GContext.loginInfo?.token.toString()),
             onSuc = {
@@ -54,10 +57,10 @@ class FeedbackLogActivity : BaseActivity() {
                         this@FeedbackLogActivity.goto<FeedbackDetailActivity> {
                             it.putExtra("feedTitle",datas[position].title)
                             it.putExtra("feedContent",datas[position].content)
+                            it.putExtra("feedUserName",GContext.loggedUser?.user?.userName.toString())
                         }
                     }
                 }
-
             })
         }
     }

@@ -16,6 +16,7 @@ class FeedbackDetailActivity : BaseActivity() {
         with(bind) {
             lTitle.text = intent.getStringExtra("feedTitle")
             lContent.text = intent.getStringExtra("feedContent")
+            lUserName.text = intent.getStringExtra("feedUserName")
         }
     }
 }
