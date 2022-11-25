@@ -101,9 +101,12 @@ open class BaseListAdapter<T:Any>(val layoutId:Int,val datas:List<T>,
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-        datas[position].getValue(imgName)?.let {
-            holder.img?.loadImg(it.toString())
+        holder.img?.let {
+            datas[position].getValue(imgName)?.let {
+                url->it.loadImg(url.toString())
+            }
         }
+
 
         holder.title.text = if(titleName == "this")
                                 datas[position].toString()

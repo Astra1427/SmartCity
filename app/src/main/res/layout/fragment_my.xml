@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="个人信息"
+                android:text="反馈历史"
                 />
             <ImageView
                 android:layout_width="40dp"

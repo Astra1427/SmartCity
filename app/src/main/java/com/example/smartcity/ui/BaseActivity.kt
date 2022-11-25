@@ -15,7 +15,7 @@ open class BaseActivity:AppCompatActivity() {
 
     val TAG = this.javaClass.simpleName
     val btnBack: ImageView? by lazy { findViewById<ImageView>(R.id.btnBack) }
-    val txtTitle: TextView? by lazy { findViewById<TextView>(R.id.txtTitle) }
+    val tbarTitle: TextView? by lazy { findViewById<TextView>(R.id.tbarTitle) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ open class BaseActivity:AppCompatActivity() {
             this.finish()
         }
         btnBack?.isVisible = isBackButton
-        txtTitle?.text = title
+        tbarTitle?.text = title
     }
 
     override fun onDestroy() {

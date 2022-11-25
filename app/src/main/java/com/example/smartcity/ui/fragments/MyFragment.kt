@@ -11,9 +11,7 @@ import com.example.smartcity.LoginActivity
 import com.example.smartcity.common.*
 import com.example.smartcity.common.Network.getAsync
 import com.example.smartcity.databinding.FragmentMyBinding
-import com.example.smartcity.ui.activities.MyOrderListActivity
-import com.example.smartcity.ui.activities.PasswordModifyActivity
-import com.example.smartcity.ui.activities.UserInfoActivity
+import com.example.smartcity.ui.activities.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -55,6 +53,13 @@ class MyFragment: BaseFragment<FragmentMyBinding>() {
         }
         bind.layoutOrderList.setOnClickListener {
             this@MyFragment.requireActivity().goto<MyOrderListActivity>()
+        }
+
+        bind.layoutFeedback.setOnClickListener {
+            this@MyFragment.requireActivity().goto<FeedbackActivity>()
+        }
+        bind.layoutFeedbackHistory.setOnClickListener {
+            this@MyFragment.requireActivity().goto<FeedbackLogActivity>()
         }
     }
 
