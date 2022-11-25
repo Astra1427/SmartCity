@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:textSize="22sp"
             android:textColor="@color/white"
-            android:id="@+id/txtTitle"
+            android:id="@+id/tbarTitle"
             android:layout_centerInParent="true"
             />
 
