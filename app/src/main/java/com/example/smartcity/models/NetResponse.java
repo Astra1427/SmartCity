@@ -7,6 +7,7 @@ public class NetResponse {
     public String msg;
     @SerializedName("code")
     public int code;
+
 }
 
 

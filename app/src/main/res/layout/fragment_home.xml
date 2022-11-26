@@ -19,7 +19,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/teal_700"
+                android:background="@android:color/holo_blue_light"
                 >
 
                 <LinearLayout
@@ -49,6 +49,7 @@
                             android:text="佳木斯"
                             android:layout_gravity="center_horizontal"
                             android:id="@+id/txtLocation"
+                            android:textColor="@color/white"
                             />
                     </LinearLayout>
 
@@ -60,6 +61,8 @@
                         android:hint="搜索"
                         android:shadowRadius="@integer/material_motion_duration_long_1"
                         android:layout_gravity="center_vertical"
+                        android:id="@+id/txtSearch"
+                        android:singleLine="true"
                         />
                 </LinearLayout>
 

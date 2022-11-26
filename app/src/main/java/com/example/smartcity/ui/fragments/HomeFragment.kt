@@ -6,10 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +17,14 @@ import com.example.smartcity.adpater.BaseListAdapter
 import com.example.smartcity.common.*
 import com.example.smartcity.common.Network.getAsync
 import com.example.smartcity.databinding.FragmentHomeBinding
+import com.example.smartcity.models.GetPressPressIdModel
 import com.example.smartcity.models.PressListModel
 import com.example.smartcity.models.RotationListModel
 import com.example.smartcity.models.RotationListModel.RowsDTO
 import com.example.smartcity.models.ServiceModel
 import com.example.smartcity.ui.JumpTabEvent
 import com.example.smartcity.ui.activities.press.PressDetailActivity
+import com.example.smartcity.ui.activities.press.SearchPressResultActivity
 import com.example.smartcity.ui.home.CityPickerActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -75,6 +74,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val d1 = resources.getDimension(R.dimen.d1).toInt()
 
+
+        // set searchText Return event
+
+        Log.e(TAG, "onViewCreated: txtSearch${bind.txtSearch == null}")
+        bind.txtSearch?.setOnKeyListener { v, keyCode, event ->
+            Log.e(TAG, "onViewCreated: ${event.keyCode} ||| $keyCode")
+
+            if (event != null && KeyEvent.KEYCODE_ENTER == event.keyCode && event.action == KeyEvent.ACTION_UP){
+                //goto search result page
+                this.requireActivity().goto<SearchPressResultActivity>(){
+                    it.putExtra("searchWord",bind.txtSearch?.text.toString())
+                }
+
+                true
+            }
+            false
+        }
+
         //load title bar data
 
         bind.txtLocation.text = Util.locationCity.readText("佳木斯市")
@@ -102,17 +119,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             p2: Int,
                             p3: Int
                         ) {
+                            if (p1 == null)return
                             p0!!.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                             Glide.with(p0!!.imageView!!.context).load(Network.baseUrl+ p1?.advImg).into(p0!!.imageView)
-
                         }
-
                     })
                         .setIndicator(CircleIndicator(this@HomeFragment.activity))
                         .addBannerLifecycleObserver(this@HomeFragment.activity)
                         .setOnBannerListener(object :OnBannerListener<RowsDTO>{
                             override fun OnBannerClick(p0: RowsDTO?, p1: Int) {
                                 GContext.context.msg(p0?.targetId.toString())
+                                Apis.get_press_press__id_.replace("{id}",p0?.id.toString()).getAsync(onSuc = {result->
+                                    val response =  result.toModel<GetPressPressIdModel>()
+                                    this@HomeFragment.requireActivity().goto<PressDetailActivity>{
+                                        it.putExtra("pressJsonData",response?.data.toJson())
+                                    }
+                                })
+
+
                             }
                         })
 

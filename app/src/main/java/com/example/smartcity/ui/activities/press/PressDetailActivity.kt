@@ -18,6 +18,7 @@ import com.example.smartcity.GContext
 import com.example.smartcity.R
 import com.example.smartcity.adpater.BaseListAdapter
 import com.example.smartcity.common.*
+import com.example.smartcity.common.ActivityController.add
 import com.example.smartcity.common.Network.getAsync
 import com.example.smartcity.databinding.ActivityPressDetailBinding
 import com.example.smartcity.models.PressCommentListModel
@@ -41,14 +42,21 @@ class PressDetailActivity : BaseActivity() {
 
         initView(true,"新闻详情")
         val pressId = intent.getIntExtra("pressId",0)
+        var pressModel :PressListModel.RowsDTO? = null
 
-        val pressModel = intent.getStringExtra("pressJsonData")?.toModel<PressListModel.RowsDTO>()
+        pressModel = intent.getStringExtra("pressJsonData")?.toModel<PressListModel.RowsDTO>()
+
+
 
         if (pressModel == null){
-            this.alertMsg("获取新闻信息失败！")
+            this@PressDetailActivity.alertMsg("获取新闻信息失败！")
             return
         }
+
         with(bind) {
+
+            val pressModel = pressModel!!
+
             txtTitle.text = pressModel.title
 
 
@@ -89,6 +97,8 @@ class PressDetailActivity : BaseActivity() {
                         ) {
 
                             drawable.addLevel(1,1,p0)
+
+
                             drawable.setBounds(0,0,p0.intrinsicWidth*2,p0.intrinsicHeight*2)
 
                             drawable.level = 1
@@ -101,7 +111,9 @@ class PressDetailActivity : BaseActivity() {
 
             txtContent.text = Html.fromHtml(pressModel.content+"<img src='https://profile-avatar.csdnimg.cn/d4b90ea1957f45139b11ffda5011c252_weixin_34273481.jpg'><img src='https://profile-avatar.csdnimg.cn/d4b90ea1957f45139b11ffda5011c252_weixin_34273481.jpg'>",
             imageGetter2,null)
-            imgCover.loadImg(pressModel.cover)
+            pressModel.cover?.let {
+                imgCover.loadImg(it)
+            }
 
             Apis.get_press_comments_list.getAsync(heads = mapOf("Authorization" to GContext.loginInfo?.token.toString()), args = mapOf("newsId" to pressModel.id), onSuc = {
                 val response = it.toModel<PressCommentListModel>()
