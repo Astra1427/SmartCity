@@ -45,7 +45,7 @@ class SearchPressResultActivity : BaseActivity() {
         Apis.get_press_press_list.getAsync(mapOf("title" to bind.txtSearch.text.toString()), onSuc = {
             val press = it.toModel<PressListModel>()
             if (press?.rows == null) return@getAsync
-            press.rows.first().title
+
             bind.rvNews.adapter = null
             bind.rvNews.adapter = object:BaseListAdapter<PressListModel.RowsDTO>(
                 layoutId = R.layout.item_v3line,
