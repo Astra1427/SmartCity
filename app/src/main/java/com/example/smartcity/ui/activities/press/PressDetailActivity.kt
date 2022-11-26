@@ -1,17 +1,21 @@
 package com.example.smartcity.ui.activities.press
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LevelListDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import androidx.core.text.buildSpannedString
+import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.smartcity.GContext
+import com.example.smartcity.R
 import com.example.smartcity.adpater.BaseListAdapter
 import com.example.smartcity.common.*
 import com.example.smartcity.common.Network.getAsync
@@ -105,10 +109,27 @@ class PressDetailActivity : BaseActivity() {
                     return@getAsync
                 }
                 val rows = response.rows
-/*
-                rvComments.adapter = object :BaseListAdapter<PressCommentListModel.RowsDTO>(){
 
-                }*/
+                rvComments.adapter = object :BaseListAdapter<PressCommentListModel.RowsDTO>(layoutId = android.R.layout.simple_list_item_2,
+                datas = rows,
+                ){
+                    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+                        super.onBindViewHolder(holder, position)
+
+                        holder.title.text = buildSpannedString {
+                            appendLine(datas[position].userName)
+                            appendLine(datas[position].content ?: "")
+                            appendLine("支持："+datas[position].likeNum.toString() + " ".repeat(10)+datas[position].commentDate)
+                        }
+                        holder.line2?.let{
+                            it.updateLayoutParams {
+                                height = 2
+                            }
+                            it.setBackgroundColor(Color.BLACK)
+                        }
+
+                    }
+                }
 
 
 
