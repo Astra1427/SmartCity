@@ -105,12 +105,20 @@ class UserInfoActivity : BaseActivity() {
             txtIDCard.isEnabled = isModify
             rbMale.isEnabled = isModify
             rbFemale.isEnabled = isModify
+            val user = GContext.loggedUser!!.user
+
             if (isModify){
                 btnModify.visibility = View.GONE
                 btnSave.isVisible = true
+                txtPhone.setText(user.phonenumber)
+                txtIDCard.setText(user.idCard)
+
             }else{
                 btnModify.visibility = View.VISIBLE
                 btnSave.isVisible = false
+                txtPhone.setText(user.phonenumber.substring(0,7).padEnd(11,'*'))
+                txtIDCard.setText(user.idCard.substring(0,6).padEnd(18,'*'))
+
             }
 
         }
