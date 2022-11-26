@@ -135,7 +135,9 @@
             android:id="@+id/txtIDCard"
             android:hint="身份证"
             android:textColorHint="@android:color/transparent"
-            android:inputType="number"
+            android:inputType="textEmailAddress"
+            android:digits="0123456789X"
+            android:imeOptions="actionNext"
             />
     </LinearLayout>
 
