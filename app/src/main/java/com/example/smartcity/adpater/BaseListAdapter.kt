@@ -31,8 +31,8 @@ open class BaseListAdapter<T:Any>(val layoutId:Int,val datas:List<T>,
     RecyclerView.Adapter<BaseListAdapter<T>.BaseViewHolder>(){
     open inner class BaseViewHolder(view: View): RecyclerView.ViewHolder(view){
         var img: ImageView? = view.findViewById(R.id.icon)
-        var title: TextView = if(onlyTitle)  view as TextView else view.findViewById(R.id.text1)
-        var line2: TextView? = view.findViewById(R.id.text2)
+        var title: TextView = if(onlyTitle)  view as TextView else (view.findViewById(R.id.text1) ?: view.findViewById(android.R.id.text1))
+        var line2: TextView? = view.findViewById(R.id.text2) ?: view.findViewById(android.R.id.text2)
         var line3: TextView? = view.findViewById(R.id.text3)
         init {
             itemView.setOnClickListener {
