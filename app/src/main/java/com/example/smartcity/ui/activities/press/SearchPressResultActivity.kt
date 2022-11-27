@@ -3,6 +3,7 @@ package com.example.smartcity.ui.activities.press
 import android.os.Bundle
 import android.text.Html
 import android.view.KeyEvent
+import com.example.smartcity.GContext
 import com.example.smartcity.R
 import com.example.smartcity.adpater.BaseListAdapter
 import com.example.smartcity.common.*
@@ -40,6 +41,7 @@ class SearchPressResultActivity : BaseActivity() {
             this.msg("请输入搜索内容")
             return
         }
+
         val d1 = resources.getDimension(R.dimen.d1).toInt()
 
         Apis.get_press_press_list.getAsync(mapOf("title" to bind.txtSearch.text.toString()), onSuc = {
