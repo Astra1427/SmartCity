@@ -12,10 +12,12 @@ import com.example.smartcity.R
 import com.example.smartcity.adpater.BaseListAdapter
 import com.example.smartcity.common.Apis
 import com.example.smartcity.common.Network.getAsync
+import com.example.smartcity.common.goto
 import com.example.smartcity.common.msg
 import com.example.smartcity.common.toModel
 import com.example.smartcity.databinding.FragmentAllServiceBinding
 import com.example.smartcity.models.ServiceModel
+import com.example.smartcity.ui.activities.metro.MetroMainActivity
 
 class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
@@ -101,7 +103,11 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
                     ).apply {
                         itemClick = { sender,posi ->
-                            GContext.context.msg("You clicked ${this@apply.datas[posi].serviceName}")
+//
+                            when (datas[posi].serviceName) {
+                                "城市地铁" -> this@AllServiceFragment.requireActivity().goto<MetroMainActivity>()
+                                else -> {GContext.context.msg("You clicked ${this@apply.datas[posi].serviceName}")}
+                            }
                         }
                     }
                 }
