@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.text.buildSpannedString
@@ -90,6 +91,14 @@ class MetroMainActivity : BaseActivity() {
                             it.text = "------------------------------------------------------------------------------------------------"
                             it.isSingleLine = true
                             it.setTextColor(Color.GRAY)
+                        }
+                    }
+                }.apply {
+                    itemClick ={
+                        v,i->
+                        this@MetroMainActivity.goto<MetroLineDetailActivity>(){
+                            Log.e(TAG, "onCreate: ${datas[i].lineId}", )
+                            it.putExtra("lineJsonData",datas[i].toJson())
                         }
                     }
                 }

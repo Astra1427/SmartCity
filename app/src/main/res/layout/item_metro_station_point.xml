@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75dp"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@android:color/darker_gray"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/cardPoint"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            app:cardCornerRadius="19dp"
+            app:cardBackgroundColor="@android:color/white"
+            android:id="@+id/cardActive"
+            />
+    </androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignTop="@id/cardPoint"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:text="安定门"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:bottom="@id/cardPoint"
+        android:layout_marginTop="40dp"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/text1"
+        />
+</RelativeLayout>
