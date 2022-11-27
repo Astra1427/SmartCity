@@ -98,8 +98,9 @@ object Network {
                         GContext.context.msg("身份信息验证失败！请重新登录")
                     }else{
                         if (tempResponse?.code != 200){
-                            val msgTitle = if (request.url.toString().contains("get")) "查询失败" else "操作失败"
+                            val msgTitle = if (request.method == "GET") "查询失败" else "操作失败"
                             ActivityController.getTop().buildAlertShow("$msgTitle：\n"+tempResponse?.msg)
+                            Log.e("SendRequest", "onResponse: Method:${request.method} --****************** \nurl :${request.url}\n", )
                             return@runOnUiThread
                         }
                         onSuc.invoke(result)
