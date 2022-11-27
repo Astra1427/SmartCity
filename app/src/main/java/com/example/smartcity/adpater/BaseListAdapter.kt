@@ -16,18 +16,18 @@ import com.example.smartcity.common.isSame
 import com.example.smartcity.common.loadImg
 import com.google.android.material.card.MaterialCardView
 
-open class BaseListAdapter<T:Any>(val layoutId:Int,val datas:List<T>,
-                                  val imgName:String? = null,
-                                  val titleName:String = "this",
-                                  val line2Name:String? = null,
-                                  val line3Name:String? = null,
-                                  val imgWidth:Int? = RecyclerView.LayoutParams.WRAP_CONTENT,
-                                  val imgHeight:Int? = RecyclerView.LayoutParams.WRAP_CONTENT,
-                                  val oddLayoutId:Int? = null,
-                                  val oddImgWidth:Int? = 0,
-                                  val oddImgHeight:Int? = 0,
-                                  val isCardView:Boolean =false,
-                                  val onlyTitle:Boolean = false):
+open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:List<T>,
+                                      val imgName:String? = null,
+                                      val titleName:String = "this",
+                                      val line2Name:String? = null,
+                                      val line3Name:String? = null,
+                                      val imgWidth:Int? = RecyclerView.LayoutParams.WRAP_CONTENT,
+                                      val imgHeight:Int? = RecyclerView.LayoutParams.WRAP_CONTENT,
+                                      val oddLayoutId:Int? = null,
+                                      val oddImgWidth:Int? = 0,
+                                      val oddImgHeight:Int? = 0,
+                                      val isCardView:Boolean =false,
+                                      val onlyTitle:Boolean = false):
     RecyclerView.Adapter<BaseListAdapter<T>.BaseViewHolder>(){
     open inner class BaseViewHolder(view: View): RecyclerView.ViewHolder(view){
         var img: ImageView? = view.findViewById(R.id.icon)
@@ -114,8 +114,8 @@ open class BaseListAdapter<T:Any>(val layoutId:Int,val datas:List<T>,
                                 datas[position].getValue(titleName)?.toString()
 
 
-
     }
+
 
     override fun getItemCount(): Int {
         return datas.size
