@@ -28,6 +28,7 @@ class GContext:Application() {
         var loginInfo:LoginResponse? = null
 
         var loggedUser:UserInfoModel? = null
+        val d1:Int by lazy {GContext.context.resources.getDimension(R.dimen.d1).toInt()}
 
     }
 
