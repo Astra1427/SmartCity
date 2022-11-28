@@ -23,7 +23,7 @@ class MyOrderListActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initView(true,"订单列表")
+
 
         bind = ActivityMyOrderListBinding.inflate(layoutInflater)
 
