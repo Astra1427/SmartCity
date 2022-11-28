@@ -11,12 +11,12 @@
 
         <ImageView
             android:id="@+id/img_left"
-            android:layout_width="9dp"
-            android:layout_height="15dp"
+            android:layout_width="18dp"
+            android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@drawable/ic_citypicker_bar_back"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/cityname_tv"

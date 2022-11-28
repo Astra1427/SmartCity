@@ -2,6 +2,7 @@ package com.example.smartcity.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.children
@@ -17,6 +18,11 @@ class CityPickerActivity: ProvinceActivity() {
 
         findViewById<LinearLayout>(R.id.hotsCityContainer).isVisible = true
         val cityList = CityListLoader.getInstance().proListData
+
+
+        findViewById<ImageView>(R.id.img_left).setOnClickListener {
+            this.onBackPressed()
+        }
 
         findViewById<LinearLayout>(R.id.hotCitiesLayout).children.forEach {v->
             v.setOnClickListener { sender ->
