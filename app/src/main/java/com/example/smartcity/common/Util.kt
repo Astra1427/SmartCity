@@ -5,6 +5,13 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LevelListDrawable
+import android.text.Html
+import android.text.Spannable
+import android.text.Spanned
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -14,6 +21,8 @@ import android.widget.Toast
 import androidx.core.content.edit
 import androidx.core.view.allViews
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.smartcity.GContext
 import com.example.smartcity.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
@@ -36,6 +45,7 @@ object Util {
     fun sharedPreferences():SharedPreferences{
         return GContext.context.getSharedPreferences("GContextShare", Context.MODE_PRIVATE)
     }
+
 }
 
 object Msg{
@@ -160,7 +170,7 @@ fun List<TextView>.checkTextIsEmpty(isMsg:Boolean = false):Boolean{
     return false
 }
 
-fun Context.alertMsg(msg:String,title:String = "提示"){
+fun Context.alertMsg(msg:Spanned,title:String = "提示"){
     AlertDialog.Builder(this).apply {
         setTitle(title)
         setMessage(msg)
@@ -176,7 +186,23 @@ fun Context.alertMsg(msg:String,title:String = "提示"){
     }.create().show()
 }
 
-fun Context.buildAlertShow(msg:String,title:String = "提示",confirmButton:String="确定",block:(AlertDialog.Builder)->Unit={
+fun Context.alertMsg(msg:String,title:String = "提示"){
+    AlertDialog.Builder(this).apply {
+        setTitle(title)
+        setMessage(msg)
+        setPositiveButton("确定",object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+
+            }
+        })
+
+        setNegativeButton("取消"){
+                dialog,which->
+        }
+    }.create().show()
+}
+
+fun Context.buildAlertShow(msg:CharSequence,title:String = "提示",confirmButton:String="确定",block:(AlertDialog.Builder)->Unit={
     it.setPositiveButton(confirmButton){
         dialog,which->
     }
@@ -187,6 +213,7 @@ fun Context.buildAlertShow(msg:String,title:String = "提示",confirmButton:Stri
         .apply {
             block.invoke(this)
         }
+
         .create().show()
 }
 
@@ -222,4 +249,27 @@ fun Context.alertRadio(radios:Array<CharSequence>, title:String = "提示", chec
         }
     }.create().show()
 
+}
+fun TextView.getImgGetter():Html.ImageGetter{
+    return Html.ImageGetter { source ->
+        val drawable = LevelListDrawable()
+
+        Glide.with(GContext.context)
+            .asDrawable()
+            .load(Network.baseUrl+source)
+            .into(object:SimpleTarget<Drawable>(){
+                override fun onResourceReady(
+                    p0: Drawable,
+                    p1: Transition<in Drawable>?
+                ) {
+                    drawable.addLevel(1,1,p0)
+                    drawable.setBounds(0,0,p0.intrinsicWidth,p0.intrinsicHeight)
+                    drawable.level = 1
+                    this@getImgGetter.invalidate()
+                    this@getImgGetter.text = this@getImgGetter.text
+                }
+
+            })
+        drawable
+    }
 }
