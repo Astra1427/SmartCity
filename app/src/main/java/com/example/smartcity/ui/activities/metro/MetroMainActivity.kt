@@ -41,10 +41,6 @@ class MetroMainActivity : BaseActivity() {
             .addBannerLifecycleObserver(this)
             .isAutoLoop(true)
             .setLoopTime(3000)
-
-
-
-
         with(bind) {
             Apis.get_api_metro_rotation_list.getAsync(onSuc = {
                 val response = it.toModel<MetroRotationListModel>()
@@ -103,6 +99,19 @@ class MetroMainActivity : BaseActivity() {
                     }
                 }
             })
+        }
+        initRoute()
+    }
+
+    fun initRoute(){
+        with(bind) {
+            cardMissing.setOnClickListener {
+                this@MetroMainActivity.goto<MetroMissingActivity>()
+            }
+            cardNotice.setOnClickListener {
+
+                this@MetroMainActivity.goto<MetroNoticeActivity>()
+            }
         }
     }
 }
