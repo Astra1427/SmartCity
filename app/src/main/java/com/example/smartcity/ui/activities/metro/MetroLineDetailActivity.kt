@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import androidx.core.text.scale
+import androidx.core.view.isVisible
 import com.example.smartcity.R
 import com.example.smartcity.adpater.BaseListAdapter
 import com.example.smartcity.common.Apis
@@ -18,6 +19,7 @@ import com.example.smartcity.models.GetMetroLineIdModel
 import com.example.smartcity.models.GetMetroLineModel
 import com.example.smartcity.models.MetroListModel
 import com.example.smartcity.ui.BaseActivity
+import com.google.android.material.card.MaterialCardView
 
 
 class MetroLineDetailActivity : BaseActivity() {
@@ -60,8 +62,8 @@ class MetroLineDetailActivity : BaseActivity() {
             })
 
 
-            Apis.get_api_metro_line__id_.replace("{id}",metroListDataDTO.lineId.toString()).getAsync(onSuc = {
-                val response = it.toModel<GetMetroLineIdModel>()
+            Apis.get_api_metro_line__id_.replace("{id}",metroListDataDTO.lineId.toString()).getAsync(onSuc = { resultStr ->
+                val response = resultStr.toModel<GetMetroLineIdModel>()
                 if (response?.data == null || response.data.metroStepList.isNullOrEmpty()) return@getAsync
                 Log.e(TAG, "length:${response?.data?.metroStepList?.size} --- ${response.data.runStationsName}", )
                 lReachM.text = buildSpannedString {
@@ -76,13 +78,10 @@ class MetroLineDetailActivity : BaseActivity() {
                     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
                         super.onBindViewHolder(holder, position)
                         val model = datas[position]
-                        holder.itemView.findViewById<CardView>(R.id.cardActive)?.let {
-                            if (model.name == response.data.runStationsName){
-                                it.setBackgroundColor(Color.parseColor("#ff33b5e5"))
-                                currentItemIndex = position
-                            }else{
-                                it.setBackgroundColor(Color.WHITE)
-                            }
+                        holder.itemView.findViewById<MaterialCardView>(R.id.cardActive)?.let {
+
+                            it.isVisible = model.name == response.data.runStationsName
+
                         }
                     }
 
