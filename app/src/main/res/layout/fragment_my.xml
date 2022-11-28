@@ -34,11 +34,11 @@
             android:layout_height="150dp"
             android:orientation="vertical"
             >
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                app:cardCornerRadius="100dp"
+                app:cardCornerRadius="50dp"
                 android:layout_marginTop="10dp"
                 >
                 <ImageView
@@ -46,12 +46,13 @@
                     android:layout_height="100dp"
                     android:scaleType="centerCrop"
                     android:id="@+id/icon"
-                    android:src="@drawable/ic_launcher_foreground"
                     android:background="@drawable/ic_launcher_background"
+                    android:foreground="@drawable/ic_launcher_foreground"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
+
                     />
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="match_parent"

@@ -24,14 +24,14 @@
             android:layout_gravity="center_vertical"
             />
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="100dp">
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            app:cardCornerRadius="37dp">
             <ImageView
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground"
+                android:foreground="@drawable/ic_launcher_foreground"
                 android:background="@drawable/ic_launcher_background"
                 android:scaleY="1.5"
                 android:scaleX="1.5"
