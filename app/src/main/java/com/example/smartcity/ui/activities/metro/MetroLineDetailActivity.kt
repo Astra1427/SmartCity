@@ -56,7 +56,7 @@ class MetroLineDetailActivity : BaseActivity() {
                 }
                 lReachStation.text = metroListDataDTO.nextStep.name
                 lReachTime.text = metroListDataDTO.reachTime.toString()+"分钟"
-                lReachM.text = ((1..10).random()*1000).toString() + "米"
+//                lReachM.text = ((1..10).random()*1000).toString() + "米"
             })
 
 
@@ -64,7 +64,10 @@ class MetroLineDetailActivity : BaseActivity() {
                 val response = it.toModel<GetMetroLineIdModel>()
                 if (response?.data == null || response.data.metroStepList.isNullOrEmpty()) return@getAsync
                 Log.e(TAG, "length:${response?.data?.metroStepList?.size} --- ${response.data.runStationsName}", )
-//                lReachM.text = response.data.km.toString()+"千米"
+                lReachM.text = buildSpannedString {
+                    appendLine(response.data.km.toString()+"千米")
+                    appendLine("剩余"+response.data.stationsNumber.toString().toFloat().toInt()+"站")
+                }
                 rvStations.adapter =  object : BaseListAdapter<GetMetroLineIdModel.DataDTO.MetroStepListDTO>(
                     layoutId = R.layout.item_metro_station_point,
                     datas = response.data.metroStepList,
