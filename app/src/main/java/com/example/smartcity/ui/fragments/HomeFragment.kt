@@ -8,8 +8,10 @@ import android.text.Html
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate
 import com.bumptech.glide.Glide
 import com.example.smartcity.GContext
 import com.example.smartcity.R
@@ -192,11 +194,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 GContext.hotPressListModel = it.toModel()
 
                 this.requireActivity().runOnUiThread{
-                    bind.rvHots.adapter = BaseListAdapter<PressListModel.RowsDTO>(R.layout.item_v1line,GContext.hotPressListModel!!.rows,
+                    bind.rvHots.adapter = object:BaseListAdapter<PressListModel.RowsDTO>(R.layout.item_v1line,GContext.hotPressListModel!!.rows,
                         imgName = "cover", titleName = "title",
                         imgWidth = d1 * 130,
                         imgHeight = d1 * 150,
-                    ).apply {
+                        isCardView = true
+                    ){
+                        override fun onCreateViewHolder(
+                            parent: ViewGroup,
+                            viewType: Int
+                        ): BaseViewHolder {
+                            return super.onCreateViewHolder(parent, viewType).apply {
+                                itemView.updateLayoutParams {
+                                    width = RecyclerView.LayoutParams.WRAP_CONTENT
+                                }
+                            }
+                        }
+
+                    }.apply {
                         itemClick={v,i->
                             this@HomeFragment.requireActivity().goto<PressDetailActivity>{
                                 it.putExtra("pressId",datas[i].id)
@@ -235,7 +250,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     bind.rvNews.adapter = object:BaseListAdapter<PressListModel.RowsDTO>(R.layout.item_v3line,
                         localPress!!.rows,
                         oddLayoutId=R.layout.item_h3line,
-                        imgWidth = d1*200,
+                        imgWidth = RecyclerView.LayoutParams.MATCH_PARENT,
                         imgHeight = d1*150,
                         imgName = "cover",
                         titleName = "title",

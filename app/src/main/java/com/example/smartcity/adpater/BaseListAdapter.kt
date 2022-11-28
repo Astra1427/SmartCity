@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.setMargins
+import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.smartcity.GContext
 import com.example.smartcity.R
 import com.example.smartcity.common.getValue
 import com.example.smartcity.common.isSame
@@ -81,9 +84,10 @@ open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:List<T>,
             val cardView = MaterialCardView(parent.context).apply {
                 layoutDirection = View.LAYOUT_DIRECTION_LTR
                 layoutParams = LinearLayout.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.WRAP_CONTENT).apply {
-                    setMargins(0,20,0,30)
+//                    setMargins(0,20,0,30)
+                    setMargins(GContext.d1 * 10)
                 }
-                radius = 20f
+                radius = GContext.d1*20f
                 elevation = 20f
             }
             cardView.addView(itemView)
