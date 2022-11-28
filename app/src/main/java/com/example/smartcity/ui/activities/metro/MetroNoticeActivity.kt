@@ -59,7 +59,7 @@ class MetroNoticeActivity : BaseActivity() {
                 ){
                     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
                         super.onBindViewHolder(holder, position)
-                        holder.title.text = "$position.${datas[position].title}"
+                        holder.title.text = "${position+1}.${datas[position].title}"
                     }
                 }.apply {
                     itemClick = {
