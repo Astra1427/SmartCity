@@ -96,8 +96,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tabNews"
-                android:background="@android:color/holo_purple"
-                app:tabTextColor="@color/black"
+                android:background="@android:color/holo_blue_light"
+                app:tabTextColor="@color/white"
                 app:tabMode="scrollable"
                 />
             <androidx.recyclerview.widget.RecyclerView
