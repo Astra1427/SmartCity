@@ -4,23 +4,46 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="10dp"
         app:cardBackgroundColor="@android:color/darker_gray"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:id="@+id/cardPoint"
         >
-        <androidx.cardview.widget.CardView
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            app:cardCornerRadius="19dp"
-            app:cardBackgroundColor="@android:color/white"
-            android:id="@+id/cardActive"
-            />
-    </androidx.cardview.widget.CardView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="9dp"
+
+        android:layout_alignTop="@id/cardPoint"
+        android:layout_alignStart="@id/cardPoint"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:visibility="visible"
+        />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+
+        app:cardBackgroundColor="@android:color/holo_blue_light"
+        app:cardCornerRadius="9dp"
+        android:id="@+id/cardActive"
+        android:layout_alignTop="@id/cardPoint"
+        android:layout_alignStart="@id/cardPoint"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:visibility="visible"
+        />
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
