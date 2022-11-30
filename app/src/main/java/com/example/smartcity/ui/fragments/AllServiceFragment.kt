@@ -19,6 +19,7 @@ import com.example.smartcity.databinding.FragmentAllServiceBinding
 import com.example.smartcity.models.ServiceModel
 import com.example.smartcity.ui.activities.campaigns.CampaignMainActivity
 import com.example.smartcity.ui.activities.metro.MetroMainActivity
+import com.example.smartcity.ui.activities.parking.ParkingMainActivity
 import com.example.smartcity.ui.activities.statistics.StatisMainActivity
 
 class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
@@ -62,7 +63,7 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
             Log.e("TAG", "onViewCreated: typeCount:${serviceTypes.size}", )
             rvServiceTypes.adapter = object:BaseListAdapter<String>(android.R.layout.simple_list_item_1,
-                datas = serviceTypes,
+                datas = serviceTypes.toMutableList(),
                 imgWidth = RecyclerView.LayoutParams.MATCH_PARENT,
                 imgHeight = d1,
                 onlyTitle = true
@@ -97,7 +98,7 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
                     rvSelectedServices.adapter = null
                     rvSelectedServices.adapter = BaseListAdapter<ServiceModel.RowsDTO>(
                         layoutId = R.layout.item_v1line,
-                        datas=GContext.serviceModel!!.rows.filter { x->x.serviceType == this.datas[i] },
+                        datas=GContext.serviceModel!!.rows.filter { x->x.serviceType == this.datas[i] }.toMutableList(),
                         titleName = "serviceName",
                         imgName = "imgUrl",
                         imgWidth = d1 * 70,
@@ -110,8 +111,11 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
                                 "城市地铁" -> this@AllServiceFragment.requireActivity().goto<MetroMainActivity>()
                                 "数据分析" -> this@AllServiceFragment.requireActivity().goto<StatisMainActivity>()
                                 "活动管理" -> this@AllServiceFragment.requireActivity().goto<CampaignMainActivity>()
+                                "停哪儿" -> this@AllServiceFragment.requireActivity().goto<ParkingMainActivity>()
                                 else -> {GContext.context.msg("You clicked ${this@apply.datas[posi].serviceName}")}
                             }
+                            Log.e(TAG, "onViewCreated: ${datas[i].serviceName}", )
+
                         }
                     }
                 }
@@ -119,7 +123,7 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
             rvSelectedServices.adapter = BaseListAdapter<ServiceModel.RowsDTO>(
                 layoutId = R.layout.item_v1line,
-                datas=GContext.serviceModel!!.rows.filter { x->x.serviceType == serviceTypes[0] },
+                datas=GContext.serviceModel!!.rows.filter { x->x.serviceType == serviceTypes[0] }.toMutableList(),
                 titleName = "serviceName",
                 imgName = "imgUrl",
                 imgWidth = d1 * 70,

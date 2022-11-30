@@ -26,6 +26,7 @@ import com.example.smartcity.models.RotationListModel.RowsDTO
 import com.example.smartcity.models.ServiceModel
 import com.example.smartcity.ui.JumpTabEvent
 import com.example.smartcity.ui.activities.metro.MetroMainActivity
+import com.example.smartcity.ui.activities.parking.ParkingMainActivity
 import com.example.smartcity.ui.activities.press.PressDetailActivity
 import com.example.smartcity.ui.activities.press.SearchPressResultActivity
 import com.example.smartcity.ui.home.CityPickerActivity
@@ -177,8 +178,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             when (datas[i].serviceName) {
                                 "全部服务" -> { EventBus.getDefault().post(JumpTabEvent(1))  }
                                 "城市地铁" -> this@HomeFragment.requireActivity().goto<MetroMainActivity>()
+                                "停哪儿" -> this@HomeFragment.requireActivity().goto<ParkingMainActivity>()
                                 else -> {}
                             }
+                            Log.e(TAG, "onViewCreated: ${datas[i].serviceName}", )
 
 
 
