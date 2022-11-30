@@ -5,12 +5,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LevelListDrawable
 import android.text.Html
-import android.text.Spannable
 import android.text.Spanned
 import android.util.Log
 import android.view.View
@@ -28,10 +25,7 @@ import com.example.smartcity.ui.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import okhttp3.internal.wait
 import java.io.InputStreamReader
-import kotlin.coroutines.coroutineContext
-import kotlin.reflect.KVisibility
 
 
 const val FirstOpenKey = "FirstOpenKey"
@@ -64,7 +58,12 @@ inline fun<reified T> String.toModel():T?{
     }
 }
 inline fun<reified T> T.toJson():String{
-    return Util.gson.toJson(this,object :TypeToken<T>(){}.type)
+    try {
+        return Util.gson.toJson(this,object :TypeToken<T>(){}.type)
+    }catch (ex:Exception){
+        Log.e("Util", "toJson: ",ex )
+        return ""
+    }
 }
 
 fun Int.readFile(): String {
@@ -130,7 +129,9 @@ fun<T:Any> T.getValue(name:String? = null):Any?{
     }?.get(this)
 }
 
-fun ImageView.loadImg(url:String){
+fun ImageView.loadImg(url:String?){
+    if (url == null )
+        return
     if (!url.contains(Network.baseUrl!!)){
         Glide.with(this.context).load(Network.baseUrl+url).into(this)
     }else
@@ -273,3 +274,5 @@ fun TextView.getImgGetter():Html.ImageGetter{
         drawable
     }
 }
+
+val keys = mutableListOf("d0")

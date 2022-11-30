@@ -40,6 +40,7 @@ open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:List<T>,
         init {
             itemView.setOnClickListener {
                 itemClick.invoke(it,adapterPosition)
+
             }
         }
     }

@@ -42,7 +42,7 @@ class MainActivity : BaseActivity() {
             finish()
             return
         }
-
+        
         bind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bind.root)
 

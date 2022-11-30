@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.press.PressDetailActivity"
+    tools:context=".ui.activities.campaigns.CampaignMainActivity"
     android:orientation="vertical">
 
     <include layout="@layout/layout_titlebar"
@@ -12,48 +12,27 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="26sp"
-                android:textColor="@color/black"
-                android:id="@+id/txtTitle"
-                />
-            <ImageView
+            android:orientation="vertical">
+            <com.youth.banner.Banner
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                android:id="@+id/imgCover"
-                android:layout_marginVertical="20dp"
+                android:layout_height="200dp"
+                android:id="@+id/bannerCampaign"
                 />
-            <TextView
+            <com.google.android.material.tabs.TabLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtContent"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="评论列表："
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:id="@+id/lLabel1"
+                android:id="@+id/tabCampaignCategories"
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/rvCampaigns"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
-                android:id="@+id/rvComments"
                 />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

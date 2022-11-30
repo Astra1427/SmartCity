@@ -17,7 +17,9 @@ import com.example.smartcity.common.msg
 import com.example.smartcity.common.toModel
 import com.example.smartcity.databinding.FragmentAllServiceBinding
 import com.example.smartcity.models.ServiceModel
+import com.example.smartcity.ui.activities.campaigns.CampaignMainActivity
 import com.example.smartcity.ui.activities.metro.MetroMainActivity
+import com.example.smartcity.ui.activities.statistics.StatisMainActivity
 
 class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
@@ -106,6 +108,8 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 //
                             when (datas[posi].serviceName) {
                                 "城市地铁" -> this@AllServiceFragment.requireActivity().goto<MetroMainActivity>()
+                                "数据分析" -> this@AllServiceFragment.requireActivity().goto<StatisMainActivity>()
+                                "活动管理" -> this@AllServiceFragment.requireActivity().goto<CampaignMainActivity>()
                                 else -> {GContext.context.msg("You clicked ${this@apply.datas[posi].serviceName}")}
                             }
                         }
