@@ -104,6 +104,11 @@ inline fun<reified T:BaseActivity> BaseActivity.goto(map: Map<String,String>? = 
 fun Context.msg( msg:String,showTime:Int = Toast.LENGTH_SHORT){
     Toast.makeText(this,msg,showTime).show()
 }
+
+fun String.msg( showTime:Int = Toast.LENGTH_SHORT){
+    Toast.makeText(GContext.context,this,showTime).show()
+}
+
 fun View.msgSnack(msg:String, showTime: Int = Snackbar.LENGTH_SHORT, actionText:String ? = null, action:()->Unit={}){
     Snackbar.make(this,msg,showTime).setAction(actionText){
         action.invoke()
@@ -132,7 +137,7 @@ fun<T:Any> T.getValue(name:String? = null):Any?{
 fun ImageView.loadImg(url:String?){
     if (url == null )
         return
-    if (!url.contains(Network.baseUrl!!)){
+    if (!url.contains("http")){
         Glide.with(this.context).load(Network.baseUrl+url).into(this)
     }else
         Glide.with(this.context).load(url).into(this)
