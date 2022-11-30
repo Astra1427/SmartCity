@@ -21,7 +21,7 @@ object Network {
     const val success_code = 200
     const val failed_code = 500
 
-    fun String.getAsync(args:Map<String,Any?>?=null, onSuc: (String) -> Unit={}, onFail: ((Exception) -> Unit)? = null, heads: Map<String,String>?=null){
+    fun String.getAsync(args:Map<String,Any?>?= null, onSuc: (String) -> Unit={}, onFail: ((Exception) -> Unit)? = null, heads: Map<String,String>?= mapOf("Authorization" to GContext.loginInfo?.token.toString())){
         var getArgs = "?"
         args?.forEach {
             if (it.value  != null)
@@ -32,6 +32,7 @@ object Network {
             heads?.forEach {
                 addHeader(it.key,it.value)
             }
+
         }.build()
         Log.d(this, "getAsync: ${baseUrl+this+getArgs}")
 
