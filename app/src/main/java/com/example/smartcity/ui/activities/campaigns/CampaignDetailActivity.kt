@@ -79,7 +79,7 @@ class CampaignDetailActivity : BaseActivity() {
                     return@getAsync
                 rvComments.adapter = object:BaseListAdapter<ActivityCommentListModel.RowsDTO>(
                     layoutId = R.layout.item_v2line,
-                    datas = result.rows.sortedByDescending { x->x.commentTime },
+                    datas = result.rows.sortedByDescending { x->x.commentTime }.toMutableList(),
                 ){
                     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
                         super.onBindViewHolder(holder, position)
@@ -111,7 +111,7 @@ class CampaignDetailActivity : BaseActivity() {
                 }
                 rvRecommend.adapter = object:BaseListAdapter<ActivityListModel.RowsDTO>(
                     layoutId = R.layout.item_v3line,
-                    datas = if (result.rows.apply { removeIf { x->x.id == model.id } }.size > 3) result.rows.take(3) else result.rows,
+                    datas = if (result.rows.apply { removeIf { x->x.id == model.id } }.size > 3) result.rows.take(3).toMutableList() else result.rows.toMutableList(),
                     isCardView = true,
                     imgWidth = GContext.match_parent,
                     imgHeight = GContext.d1 * 100,

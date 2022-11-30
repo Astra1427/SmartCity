@@ -54,7 +54,7 @@ class MetroNoticeActivity : BaseActivity() {
                     return@getAsync
                 rvNotices.adapter = object:BaseListAdapter<MetroNoticeListModel.RowsDTO>(
                     layoutId =  R.layout.item_onlyone,
-                    datas = result.rows.sortedBy { x->x.id },
+                    datas = result.rows.sortedBy { x->x.id }.toMutableList(),
                     isCardView = true,
                 ){
                     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
