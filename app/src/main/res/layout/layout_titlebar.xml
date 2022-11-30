@@ -32,6 +32,16 @@
             android:layout_centerInParent="true"
             />
 
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btnIcon1"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:scaleType="centerCrop"
+            />
+
     </RelativeLayout>
 
 </FrameLayout>
