@@ -2,10 +2,11 @@ package com.example.smartcity
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 import com.example.smartcity.common.*
 import com.example.smartcity.models.LoginResponse
-import com.example.smartcity.models.NetResponse
 import com.example.smartcity.models.PinCity
 import com.example.smartcity.models.PressCatogoryModel
 import com.example.smartcity.models.PressListModel
@@ -29,7 +30,11 @@ class GContext:Application() {
 
         var loggedUser:UserInfoModel? = null
         val d1:Int by lazy {GContext.context.resources.getDimension(R.dimen.d1).toInt()}
+        const val match_parent = RecyclerView.LayoutParams.MATCH_PARENT
+        const val wrap_content = RecyclerView.LayoutParams.WRAP_CONTENT
 
+        var lightGreen = Color.parseColor("#ff99cc00")
+        var lightBlue = Color.parseColor("#ff33b5e5")
     }
 
     override fun onCreate() {
@@ -41,6 +46,9 @@ class GContext:Application() {
         loginInfo = Util.loginInfo.readText("").toModel()
 
         Log.e("TAG", "onCreate: ${Network.baseUrl}", )
+        repeat(20){
+            keys.add("dd$it")
+        }
 
     }
 }
