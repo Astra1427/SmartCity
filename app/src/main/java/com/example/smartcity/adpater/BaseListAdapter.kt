@@ -11,7 +11,10 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.smartcity.GContext
 import com.example.smartcity.R
 import com.example.smartcity.common.getValue
@@ -19,7 +22,7 @@ import com.example.smartcity.common.isSame
 import com.example.smartcity.common.loadImg
 import com.google.android.material.card.MaterialCardView
 
-open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:List<T>,
+open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:MutableList<T>,
                                       val imgName:String? = null,
                                       val titleName:String = "this",
                                       val line2Name:String? = null,
@@ -30,7 +33,9 @@ open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:List<T>,
                                       val oddImgWidth:Int? = 0,
                                       val oddImgHeight:Int? = 0,
                                       val isCardView:Boolean =false,
-                                      val onlyTitle:Boolean = false):
+                                      val onlyTitle:Boolean = false,
+                                  val isAutoLoadMore:Boolean = false
+):
     RecyclerView.Adapter<BaseListAdapter<T>.BaseViewHolder>(){
     open inner class BaseViewHolder(view: View): RecyclerView.ViewHolder(view){
         var img: ImageView? = view.findViewById(R.id.icon)
@@ -48,6 +53,31 @@ open class BaseListAdapter<T:Any>(val layoutId:Int, val datas:List<T>,
     var currentItemIndex:Int = 0
 
     var itemClick:(View,Int)->Unit = {s,i->}
+    var loadMore:()->Unit = {}
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+
+        if (!isAutoLoadMore) return
+
+        recyclerView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastIndex = when (recyclerView.layoutManager) {
+                    is LinearLayoutManager -> {(recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()}
+                    is GridLayoutManager -> {(recyclerView.layoutManager as GridLayoutManager).findLastVisibleItemPosition()}
+                    is StaggeredGridLayoutManager -> {
+                        val manager = (recyclerView.layoutManager as StaggeredGridLayoutManager)
+                        manager.findLastVisibleItemPositions(IntArray(manager.spanCount)).max()
+                    }
+                    else -> -2
+                }
+                if (lastIndex+1 == datas.size){
+                    loadMore.invoke()
+                }
+            }
+        })
+    }
 
     override fun getItemViewType(position: Int): Int {
         return if(position % 2 == 0) 0 else 1
