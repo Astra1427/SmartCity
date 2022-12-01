@@ -106,14 +106,7 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
                     ).apply {
                         itemClick = { sender,posi ->
-//
-                            when (datas[posi].serviceName) {
-                                "城市地铁" -> this@AllServiceFragment.requireActivity().goto<MetroMainActivity>()
-                                "数据分析" -> this@AllServiceFragment.requireActivity().goto<StatisMainActivity>()
-                                "活动管理" -> this@AllServiceFragment.requireActivity().goto<CampaignMainActivity>()
-                                "停哪儿" -> this@AllServiceFragment.requireActivity().goto<ParkingMainActivity>()
-                                else -> {GContext.context.msg("You clicked ${this@apply.datas[posi].serviceName}")}
-                            }
+                            pageRoute(datas[posi].serviceName)
                             Log.e(TAG, "onViewCreated: ${datas[i].serviceName}", )
 
                         }
@@ -131,12 +124,22 @@ class AllServiceFragment:BaseFragment<FragmentAllServiceBinding>() {
 
             ).apply {
                 itemClick = { sender,posi ->
-                    GContext.context.msg("You clicked ${this@apply.datas[posi].serviceName}")
+                    pageRoute(datas[posi].serviceName)
                 }
             }
 
 
         }
         isReady = true
+    }
+
+    fun pageRoute(name:String){
+        when (name) {
+            "城市地铁" -> this@AllServiceFragment.requireActivity().goto<MetroMainActivity>()
+            "数据分析" -> this@AllServiceFragment.requireActivity().goto<StatisMainActivity>()
+            "活动管理" -> this@AllServiceFragment.requireActivity().goto<CampaignMainActivity>()
+            "停哪儿" -> this@AllServiceFragment.requireActivity().goto<ParkingMainActivity>()
+            else -> {GContext.context.msg("You clicked $name")}
+        }
     }
 }
