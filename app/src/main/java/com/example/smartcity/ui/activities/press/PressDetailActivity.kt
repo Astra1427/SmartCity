@@ -109,7 +109,7 @@ class PressDetailActivity : BaseActivity() {
                 return@ImageGetter drawable
             }
 
-            txtContent.text = Html.fromHtml(pressModel.content+"<img src='https://profile-avatar.csdnimg.cn/d4b90ea1957f45139b11ffda5011c252_weixin_34273481.jpg'><img src='https://profile-avatar.csdnimg.cn/d4b90ea1957f45139b11ffda5011c252_weixin_34273481.jpg'>",
+            txtContent.text = Html.fromHtml(pressModel.content,
             imageGetter2,null)
             pressModel.cover?.let {
                 imgCover.loadImg(it)
