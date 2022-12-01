@@ -30,6 +30,23 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 />
+            <LinearLayout android:id="@+id/progressContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:gravity="center">
+                <ProgressBar style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="加载中..."
+                    android:paddingTop="4dip"
+                    android:singleLine="true" />
+
+            </LinearLayout>
             <Button
                 style="@style/PrimaryButton"
                 android:text="查看更多"
