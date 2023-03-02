@@ -1,3 +1,3 @@
 # SmartCity
 ## ChinaSkills competition topics
-### developed using android with koltin
+### developed using android with kotlin
